@@ -1,0 +1,23 @@
+#index:
+#    path: /
+#    controller: App\Controller\DefaultController::index
+
+home:
+  path: /
+  controller: App\Controller\HomeController::index
+
+sell:
+  path: /sell
+  controller: App\Controller\GoodController::sell
+
+good:
+  path: /good/{good_id}
+  controller: App\Controller\GoodController::good
+
+messages:
+  path: /messages
+  controller: App\Controller\MessageController::index
+
+usermessages:
+  path: /usermessages/{user_id}
+  controller: App\Controller\MessageController::usermessages

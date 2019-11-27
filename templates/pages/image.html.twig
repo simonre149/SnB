@@ -1,0 +1,9 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+    {{ form_start(form) }}
+    <div class="form-group", style="margin: 20px">
+        {{ form_row(form.name) }}
+    </div>
+    <button type="submit" class="btn" style="margin-left: 20px">Submit</button>
+    {{ form_end(form) }}
+{% endblock %}

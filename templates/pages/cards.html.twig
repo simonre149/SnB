@@ -1,0 +1,27 @@
+<div class="container mx-auto">
+        <div class="row flex" style="text-align: center">
+            {% for good in allGoods %}
+                <div class="col-3 mr-5 mt-4">
+                    <div class="card" style="width: 18rem">
+                        {% if good.filename != 'NULL' %}
+                            <img class="card-img-top" src="{{ vich_uploader_asset(good, 'imageFile') }}" title={{ good.title }} alt={{ good.title }}">
+                        {% else %}
+                            <img class="card-img-top" src="https://www.hopkinsmedicine.org/-/media/feature/noimageavailable.ashx" title="no_image_available" alt="no_image_available">
+                        {% endif %}
+                        <div class="card-body">
+                            <h5 class="card-title">{{ good.title }}</h5>
+                            <h3 class="card-text" style="color: olivedrab;">{{ good.price | number_format(0, '', ' ') }}$</h3>
+                            <p class="card-text">{{ good.postalCode }}, {{ good.city }}</p>
+                            <p class="card-text">
+                                                <span class="lead" style="font-size: medium">
+                                                    on {{ good.createdAt|date('d/m/Y') }} at {{ good.createdAt|date('H:i') }}
+                                                </span>
+                            </p>
+                            <a href="{{ path('good', {good_id: good.id}) }}" class="btn">Show good</a>
+                        </div>
+                    </div>
+                </div>
+                <br/>
+            {% endfor %}
+        </div>
+</div>

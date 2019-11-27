@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+    <h1>Specific messages</h1>
+
+    {% for message in allMessages %}
+    <div class="card" style="width: 18rem;">
+        <div class="card-body">
+            <h6 class="card-subtitle mb-2 text-muted">{{ message.userOne.username }}</h6>
+            <p class="card-text">{{ message.content }}</p>
+        </div>
+    </div>
+    {% endfor %}
+
+    <div class="form-message">
+        {{ form_start(form) }}
+        <div class="form-group", style="margin: 20px">
+            {{ form_row(form.content, {'attr': {'placeholder':"Message..."}}) }}
+        </div>
+        <button type="submit" class="btn">Sell</button>
+        {{ form_end(form) }}
+    </div>
+
+{% endblock %}

@@ -1,0 +1,86 @@
+{% extends 'base.html.twig' %}
+{% block title %} Snb - {{ good.title }} {% endblock %}
+
+{% block body %}
+    <!-- Page Content -->
+    <div class="container">
+        <div class="row">
+            <!-- Post Content Column -->
+            <div class="col-lg-8">
+                <!-- Title -->
+                <h1 class="mt-4">{{ good.title }}</h1>
+
+                <!-- Author -->
+                <p class="lead">
+                    by {{ good.seller.username }}
+                </p>
+                <hr>
+
+                <!-- Date/Time -->
+                <p>Posted on {{ good.createdAt|date('d/m/Y') }} at {{ good.createdAt|date('H:i') }}</p>
+
+                <!-- Preview Image -->
+                {% if good.filename != 'NULL' %}
+                <img class="img-fluid" src="../{{ vich_uploader_asset(good, 'imageFile') }}" alt="{{ good.title }}">
+                {% else %}
+                    <img class="card-img-top" src="https://www.hopkinsmedicine.org/-/media/feature/noimageavailable.ashx" title="no_image_available" alt="no_image_available">
+                {% endif %}
+
+                <!-- Price -->
+                <h2 class="mt-4", style="color: olivedrab;">{{ good.price | number_format(0, '', ' ') }}$</h2>
+                <hr>
+
+                <!-- Post Content -->
+                <p>{{ good.description }}</p>
+            </div>
+
+            <!-- Sidebar Widgets Column -->
+            <div class="col-md-4">
+
+                <!-- Search Widget -->
+                <div class="card my-4">
+                    <h5 class="card-header">Category</h5>
+                    <div class="card-body">
+                        <p>
+                            <a href="#">{{ good.subcategory.name }}</a>, in <a href="#">{{ good.subcategory.category.name }}</a>
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Side Widget -->
+                <div class="card my-4">
+                    <h5 class="card-header">Informations</h5>
+                    <div class="card-body">
+                        <p>City : {{ good.postalCode }}, {{ good.city }}</p>
+                        <!-- Button trigger modal -->
+                        <button type="button" class="btn" data-toggle="modal" data-target="#exampleModal">
+                            Contact
+                        </button>
+                            <a class="btn" href="{{ path('usermessages', {user_id : good.seller.id}) }}">Send a message</a>
+
+                        <!-- Modal -->
+                        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">Contact</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <h4 style="text-align: center">Phone : {{ good.phone }}</h4>
+                                        <h4 style="text-align: center">Email : {{ good.seller.email }}</h4>
+                                    </div>
+                                    <div class="modal-footer mx-auto">
+                                        <button type="button" class="btn" data-dismiss="modal">Close</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
