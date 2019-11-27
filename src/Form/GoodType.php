@@ -11,6 +11,7 @@ use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
+use Symfony\Component\Form\FormInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class GoodType extends AbstractType
@@ -35,6 +36,51 @@ class GoodType extends AbstractType
                 'required' => true
             ])
         ;
+
+        $builder->get('category')->addEventListener(
+            FormEvents::POST_SUBMIT,
+            function (FormEvent $event)
+            {
+                $form = $event->getForm();
+                $this->addSubcategoryField($form->getParent(), $form->getData());
+            }
+        );
+
+        $builder->addEventListener(
+            FormEvents::POST_SET_DATA,
+            function (FormEvent $event)
+            {
+                $data = $event->getData();
+                $subcategory = $data->getSubcategory();
+
+                $form = $event->getForm();
+                if ($subcategory)
+                {
+                    $category = $subcategory->getCategory();
+                    $this->addSubcategoryField($form, $category);
+                    $form->get('category')->setData($category);
+                }
+                else
+                {
+                    $this->addSubcategoryField($form, null);
+                }
+            }
+        );
+    }
+
+    public function addSubcategoryField(FormInterface $form, ?Category $category)
+    {
+        $builder = $form->getConfig()->getFormFactory()->createNamedBuilder(
+            'subcategory', EntityType::class, null,
+            [
+                'class' => Subcategory::class,
+                'placeholder' => 'Choose a subcategory',
+                'required' => true,
+                'auto_initialize' => false,
+                'choices' => $category ? $category->getSubcategories() : []
+            ]
+        );
+        $form->add($builder->getForm());
     }
 
     public function configureOptions(OptionsResolver $resolver)

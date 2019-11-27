@@ -3,11 +3,13 @@
 namespace App\Controller;
 
 use App\Entity\Good;
+use App\Entity\Subcategory;
 use App\Form\GoodType;
 use App\Repository\GoodRepository;
 use App\Repository\UserRepository;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
 
 class GoodController extends AbstractController
@@ -29,9 +31,10 @@ class GoodController extends AbstractController
             $manager->persist($good);
             $manager->flush();
 
-            return $this->redirectToRoute('home', array(
+            return $this->redirectToRoute('home', [
                 'good_id' => $good->getId(),
-            ));
+                ]
+            );
         }
 
         return $this->render('pages/sell.html.twig', [

@@ -1,8 +1,8 @@
-<div class="container mx-auto">
-        <div class="row flex" style="text-align: center">
+<div class="container">
+        <div class="row flex">
             {% for good in allGoods %}
-                <div class="col-3 mr-5 mt-4">
-                    <div class="card" style="width: 18rem">
+                <div class="col-3 mt-4">
+                    <div class="card" style="width: 17rem">
                         {% if good.filename != 'NULL' %}
                             <img class="card-img-top" src="{{ vich_uploader_asset(good, 'imageFile') }}" title={{ good.title }} alt={{ good.title }}">
                         {% else %}
@@ -21,7 +21,7 @@
                         </div>
                     </div>
                 </div>
-                <br/>
             {% endfor %}
         </div>
 </div>
+<br/>
