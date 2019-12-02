@@ -56,7 +56,9 @@
                         <button type="button" class="btn" data-toggle="modal" data-target="#exampleModal">
                             Contact
                         </button>
+                        {% if app.user != good.seller %}
                             <a class="btn" href="{{ path('usermessages', {user_id : good.seller.id}) }}">Send a message</a>
+                        {% endif %}
 
                         <!-- Modal -->
                         <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">

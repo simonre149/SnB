@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Message;
 use App\Entity\User;
 use App\Form\MessageType;
 use App\Repository\MessageRepository;
@@ -21,11 +22,12 @@ class MessageController extends AbstractController
 
     public function usermessages($user_id, Request $request, ObjectManager $manager, UserRepository $userRepository, MessageRepository $messageRepository)
     {
-        $form = $this->createFormBuilder()->getForm();
         $user1 = $this->getUser();
         $user2 = $userRepository->findOneById($user_id);
 
-        $message = new \App\Entity\Message();
+        if ($user1->getId() == $user_id) return $this->redirectToRoute('home');
+
+        $message = new Message();
         $message->setSentAt(new \DateTime());
         $message->setUserOne($user1);
         $message->setUserTwo($user2);
@@ -38,7 +40,7 @@ class MessageController extends AbstractController
             $manager->persist($message);
             $manager->flush();
 
-            return $this->redirectToRoute('home');
+            return $this->redirect($request->getUri());
         }
 
         $allMessages = $messageRepository->findAll();

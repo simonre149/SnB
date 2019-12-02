@@ -5,6 +5,7 @@ namespace App\Form;
 use App\Entity\Category;
 use App\Entity\Good;
 use App\Entity\Subcategory;
+use Doctrine\ORM\Mapping\Entity;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
@@ -33,14 +34,12 @@ class GoodType extends AbstractType
                 'choice_label' => 'name',
                 'placeholder' => 'Choose a category',
                 'mapped' => false,
-                'required' => true
-            ])
-        ;
+                'required' => false
+            ]);
 
         $builder->get('category')->addEventListener(
             FormEvents::POST_SUBMIT,
-            function (FormEvent $event)
-            {
+            function (FormEvent $event) {
                 $form = $event->getForm();
                 $this->addSubcategoryField($form->getParent(), $form->getData());
             }
@@ -48,38 +47,24 @@ class GoodType extends AbstractType
 
         $builder->addEventListener(
             FormEvents::POST_SET_DATA,
-            function (FormEvent $event)
-            {
+            function (FormEvent $event) {
                 $data = $event->getData();
-                $subcategory = $data->getSubcategory();
-
                 $form = $event->getForm();
-                if ($subcategory)
-                {
-                    $category = $subcategory->getCategory();
-                    $this->addSubcategoryField($form, $category);
-                    $form->get('category')->setData($category);
-                }
-                else
-                {
-                    $this->addSubcategoryField($form, null);
-                }
+                $this->addSubcategoryField($form, null);
             }
         );
     }
 
-    public function addSubcategoryField(FormInterface $form, ?Category $category)
+    private function addSubcategoryField(FormInterface $form, ?Category $category)
     {
-        $builder = $form->getConfig()->getFormFactory()->createNamedBuilder(
-            'subcategory', EntityType::class, null,
-            [
-                'class' => Subcategory::class,
-                'placeholder' => 'Choose a subcategory',
-                'required' => true,
-                'auto_initialize' => false,
-                'choices' => $category ? $category->getSubcategories() : []
-            ]
-        );
+        $builder = $form->getConfig()->getFormFactory()->createNamedBuilder('subcategory', EntityType::class, null, [
+            'class' => Subcategory::class,
+            'placeholder' => $category ? 'Choose a subcategory' : "Choose a category first !",
+            'required' => false,
+            'auto_initialize' => false,
+            'choices' => $category ? $category->getSubcategories() : []
+        ]);
+
         $form->add($builder->getForm());
     }
 

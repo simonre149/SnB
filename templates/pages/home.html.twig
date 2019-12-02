@@ -1,7 +1,7 @@
 {% extends 'base.html.twig' %}
 {% block body %}
     <div class="jumbotron" style="text-align: center">
-        <h1 class="display-4">Welcome on SnB !</h1>
+        <h1 class="display-4">Welcome on SnB {% if app.user %}{{ app.user.username }}{% endif %} !</h1>
         <p class="lead">The best way to be buy or sell (almost) everything !</p>
         {% if not app.user %}
         <hr class="my-4">

@@ -3,13 +3,10 @@
 namespace App\Controller;
 
 use App\Entity\Good;
-use App\Entity\Subcategory;
 use App\Form\GoodType;
 use App\Repository\GoodRepository;
-use App\Repository\UserRepository;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
 
 class GoodController extends AbstractController
@@ -43,7 +40,7 @@ class GoodController extends AbstractController
         ]);
     }
 
-    public function good($good_id, GoodRepository $goodRepository, UserRepository $userRepository)
+    public function good($good_id, GoodRepository $goodRepository)
     {
         $good = $goodRepository->findOneById($good_id);
 
