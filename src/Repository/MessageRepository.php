@@ -19,6 +19,18 @@ class MessageRepository extends ServiceEntityRepository
         parent::__construct($registry, Message::class);
     }
 
+    public function findAllByCurrentUserId($id)
+    {
+        return $this->createQueryBuilder('m')
+            ->andWhere('m.userOne = :id')
+            ->orWhere('m.userTwo = :id')
+            ->setParameter('id', $id)
+            ->orderBy('m.sentAt', 'DESC')
+            ->getQuery()
+            ->getResult()
+            ;
+    }
+
     // /**
     //  * @return Message[] Returns an array of Message objects
     //  */

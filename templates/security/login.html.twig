@@ -1,14 +1,14 @@
 {% extends 'base.html.twig' %}
 {% block body %}
-    <h1>Login</h1>
-    <form action="{{ path('security_login') }}" method="post">
+    <h1 style="text-align: center; padding-top: 5%">Login</h1>
+    <form class="col-sm-4 mx-auto" action="{{ path('security_login') }}" method="post">
         <div class="form-group" style="margin: 20px">
             <input type="text" placeholder="Email..." required name="_username" class="form-control">
         </div>
         <div class="form-group" style="margin: 20px">
             <input type="password" placeholder="Password..." required name="_password" class="form-control">
         </div>
-        <div class="form-group" style="margin: 20px">
+        <div class="form-group" style="margin: 20px; text-align: center">
             <button type="submit" class="btn">Submit</button>
             or
             <a href="{{ path('security_registration') }}" style="color: black" role="button">

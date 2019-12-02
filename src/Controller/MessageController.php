@@ -13,10 +13,21 @@ use Symfony\Component\HttpFoundation\Request;
 
 class MessageController extends AbstractController
 {
-    public function index()
+    public function index(MessageRepository $messageRepository)
     {
+        $allMessages = $messageRepository->findAllByCurrentUserId($this->getUser()->getId());
+        $allContactedUsers = [];
+        $finalContactedUsers = [];
+
+        for($i = 0; $i < count($allMessages); $i++)
+        {
+            array_push($allContactedUsers, $allMessages[$i]->getUserOne()->getId());
+            array_push($allContactedUsers, $allMessages[$i]->getUserTwo()->getId());
+        }
+
         return $this->render('pages/messages.html.twig', [
-            'current_menu' => 'messages'
+            'current_menu' => 'messages',
+            'allContactedUsers' => $allContactedUsers
         ]);
     }
 
