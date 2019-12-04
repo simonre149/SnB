@@ -17,13 +17,15 @@ class MessageController extends AbstractController
     {
         $allMessages = $messageRepository->findAllByCurrentUserId($this->getUser()->getId());
         $allContactedUsers = [];
-        $finalContactedUsers = [];
 
         for($i = 0; $i < count($allMessages); $i++)
         {
-            array_push($allContactedUsers, $allMessages[$i]->getUserOne()->getId());
-            array_push($allContactedUsers, $allMessages[$i]->getUserTwo()->getId());
+            array_push($allContactedUsers, $allMessages[$i]->getUserOne());
+            array_push($allContactedUsers, $allMessages[$i]->getUserTwo());
         }
+
+        $allContactedUsers = array_unique($allContactedUsers);
+        $allContactedUsers = array_diff($allContactedUsers, [$this->getUser()] );
 
         return $this->render('pages/messages.html.twig', [
             'current_menu' => 'messages',
@@ -54,7 +56,7 @@ class MessageController extends AbstractController
             return $this->redirect($request->getUri());
         }
 
-        $allMessages = $messageRepository->findAll();
+        $allMessages = $messageRepository->findAllByUserOneAndUserTwoId($user1->getId(), $user2->getId());
 
         return $this->render('pages/usermessages.html.twig',[
             'current_menu' => 'messages',

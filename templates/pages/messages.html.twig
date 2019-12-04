@@ -3,8 +3,8 @@
     <h1 style="text-align: center; padding-bottom: 2%;">Messages</h1>
     <div class="card mx-auto" style="width: 18rem">
         <ul class="list-group list-group-flush">
-            {% for username in allContactedUsers %}
-            <li class="list-group-item">{{ username }}</li>
+            {% for user in allContactedUsers %}
+            <li class="list-group-item"><a href="{{ path('usermessages', {user_id: user.id})  }}">{{ user.username }}</a></li>
             {% endfor %}
         </ul>
     </div>

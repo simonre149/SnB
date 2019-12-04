@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 {% block body %}
-    <h1 id="top" style="text-align: center">{{ allMessages[0].userTwo.username }}</h1>
+    <h1 id="top" style="text-align: center">Messages</h1>
     <p style="text-align: center"><a class="mx-auto" href="#bottom">Go to bottom</a></p>
     <br>
 
@@ -35,7 +35,9 @@
         <div class="form-group", style="margin: 20px">
             {{ form_row(form.content, {'attr': {'placeholder':"Message..."}}) }}
         </div>
-        <button type="submit" class="btn" id="bottom" style="text-align: right">Sell</button>
+        <div class="mx-auto" style="text-align: center">
+            <button type="submit" class="btn mx-auto" id="bottom">Send</button>
+        </div>
         {{ form_end(form) }}
     </div>
     <br>

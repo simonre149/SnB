@@ -19,6 +19,16 @@ class GoodRepository extends ServiceEntityRepository
         parent::__construct($registry, Good::class);
     }
 
+    public function findAllDescSentAt()
+    {
+        return $this->createQueryBuilder('g')
+            ->orderBy('g.createdAt', 'DESC')
+            ->setMaxResults(16)
+            ->getQuery()
+            ->getResult()
+            ;
+    }
+
     public function findOneById($id)
     {
         return $this->createQueryBuilder('g')
@@ -27,6 +37,16 @@ class GoodRepository extends ServiceEntityRepository
             ->setMaxResults(1)
             ->getQuery()
             ->getSingleResult()
+            ;
+    }
+
+    public function findAllByUserId($id)
+    {
+        return $this->createQueryBuilder('g')
+            ->andWhere('g.seller = :id')
+            ->setParameter('id', $id)
+            ->getQuery()
+            ->getResult()
             ;
     }
 

@@ -1,16 +1,19 @@
 {% extends 'base.html.twig' %}
 {% block body %}
-    <div class="jumbotron" style="text-align: center">
+    <div class="jumbotron" style="text-align: center; background-color: white">
         <h1 class="display-4">Welcome on SnB {% if app.user %}{{ app.user.username }}{% endif %} !</h1>
         <p class="lead">The best way to be buy or sell (almost) everything !</p>
         {% if not app.user %}
-        <hr class="my-4">
-        <p>You are not logged in, you can't buy or sell anything, so you should :</p>
-        <p class="lead">
-            <a class="btn" href="{{ path('security_registration') }}" role="button">Register</a>
-            or
-            <a class="btn" href="{{ path('security_login') }}" role="button">Login</a>
-        </p>
+            <hr class="my-4">
+            <p>You are not logged in, you can't buy or sell anything, so you should :</p>
+            <p class="lead">
+                <a class="btn" href="{{ path('security_registration') }}" role="button">Register</a>
+                or
+                <a class="btn" href="{{ path('security_login') }}" role="button">Login</a>
+            </p>
+        {% endif %}
+        {% if app.user %}
+            <a class="btn" href="{{ path('profile') }}">Go to your profile</a>
         {% endif %}
     </div>
 

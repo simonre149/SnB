@@ -21,3 +21,15 @@ messages:
 usermessages:
   path: /usermessages/{user_id}
   controller: App\Controller\MessageController::usermessages
+
+profile:
+  path: /profile
+  controller: App\Controller\ProfileController::index
+
+edit:
+  path: /edit/{good_id}
+  controller: App\Controller\GoodController::edit
+
+delete:
+  path: /delete/{good_id}
+  controller: App\Controller\GoodController::delete

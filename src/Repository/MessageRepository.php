@@ -31,6 +31,20 @@ class MessageRepository extends ServiceEntityRepository
             ;
     }
 
+    public function findAllByUserOneAndUserTwoId($id1, $id2)
+    {
+        return $this->createQueryBuilder('m')
+            ->where('m.userOne = :id1 OR m.userOne = :id2')
+            ->andWhere('m.userTwo = :id2 OR m.userTwo = :id1')
+            ->setParameter('id1', $id1)
+            ->setParameter('id2', $id2)
+            ->orderBy('m.sentAt', 'ASC')
+            ->setMaxResults(30)
+            ->getQuery()
+            ->getResult()
+            ;
+    }
+
     // /**
     //  * @return Message[] Returns an array of Message objects
     //  */

@@ -48,4 +48,35 @@ class GoodController extends AbstractController
             'good' => $good
         ]);
     }
+
+    public function edit($good_id, GoodRepository $goodRepository, Request $request, ObjectManager $objectManager)
+    {
+        $good = $goodRepository->findOneById($good_id);
+
+        if ($this->getUser()->getId() != $good->getSeller()->getId()) return $this->redirectToRoute('home');
+
+        $form = $this->createForm(GoodType::class, $good);
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid())
+        {
+            $objectManager->flush();
+            return $this->redirectToRoute('profile');
+        }
+
+        return $this->render('pages/sell.html.twig', [
+            'form' => $form->createView()
+        ]);
+    }
+
+    public function delete($good_id, GoodRepository $goodRepository, Request $request, ObjectManager $objectManager)
+    {
+        $good = $goodRepository->findOneById($good_id);
+
+        if ($this->getUser()->getId() != $good->getSeller()->getId()) return $this->redirectToRoute('home');
+
+        $objectManager->remove($good);
+        $objectManager->flush();
+        return $this->redirectToRoute('profile');
+    }
 }
