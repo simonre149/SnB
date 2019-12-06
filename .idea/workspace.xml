@@ -3,6 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="2831273d-8bc8-43ba-a9e9-8921ea292408" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/composer.lock" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -21,8 +22,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/composer.json">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="136">
-              <caret line="8" column="18" selection-start-line="8" selection-start-column="18" selection-end-line="8" selection-end-column="18" />
+            <state relative-caret-position="119">
+              <caret line="7" column="23" selection-start-line="7" selection-start-column="23" selection-end-line="7" selection-end-column="23" />
             </state>
           </provider>
         </entry>
@@ -31,7 +32,7 @@
         <entry file="file://$PROJECT_DIR$/symfony.lock">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="307">
-              <caret line="424" column="61" selection-start-line="424" selection-start-column="61" selection-end-line="424" selection-end-column="61" />
+              <caret line="427" column="61" selection-start-line="427" selection-start-column="61" selection-end-line="427" selection-end-column="61" />
             </state>
           </provider>
         </entry>
@@ -334,12 +335,12 @@
       <workItem from="1575454167177" duration="796000" />
       <workItem from="1575551778259" duration="5591000" />
       <workItem from="1575570178971" duration="1018000" />
-      <workItem from="1575623891352" duration="5127000" />
+      <workItem from="1575623891352" duration="5601000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="122045000" />
+    <option name="totallyTimeSpent" value="122519000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
@@ -653,7 +654,7 @@
     <entry file="file://$PROJECT_DIR$/symfony.lock">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="307">
-          <caret line="424" column="61" selection-start-line="424" selection-start-column="61" selection-end-line="424" selection-end-column="61" />
+          <caret line="427" column="61" selection-start-line="427" selection-start-column="61" selection-end-line="427" selection-end-column="61" />
         </state>
       </provider>
     </entry>
@@ -680,8 +681,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/composer.json">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="8" column="18" selection-start-line="8" selection-start-column="18" selection-end-line="8" selection-end-column="18" />
+        <state relative-caret-position="119">
+          <caret line="7" column="23" selection-start-line="7" selection-start-column="23" selection-end-line="7" selection-end-column="23" />
         </state>
       </provider>
     </entry>
