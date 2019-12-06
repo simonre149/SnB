@@ -45,6 +45,7 @@ class GoodRepository extends ServiceEntityRepository
         return $this->createQueryBuilder('g')
             ->andWhere('g.seller = :id')
             ->setParameter('id', $id)
+            ->orderBy('g.createdAt','DESC')
             ->getQuery()
             ->getResult()
             ;

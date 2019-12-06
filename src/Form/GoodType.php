@@ -48,7 +48,6 @@ class GoodType extends AbstractType
         $builder->addEventListener(
             FormEvents::POST_SET_DATA,
             function (FormEvent $event) {
-                $data = $event->getData();
                 $form = $event->getForm();
                 $this->addSubcategoryField($form, null);
             }

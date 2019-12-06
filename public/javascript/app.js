@@ -14,5 +14,5 @@ $(document).on('change', '#good_category', function(){
 });
 
 $(document).on('change', '#good_imageFile', function() {
-	alert("Your image has been succesfully uploaded");
+	alert("Your file has been succesfully uploaded");
 });
