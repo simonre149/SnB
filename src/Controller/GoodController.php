@@ -5,13 +5,13 @@ namespace App\Controller;
 use App\Entity\Good;
 use App\Form\GoodType;
 use App\Repository\GoodRepository;
-use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 
 class GoodController extends AbstractController
 {
-    public function sell(Request $request, ObjectManager $manager)
+    public function sell(Request $request, EntityManagerInterface $entityManager)
     {
         $seller = $this->getUser();
 
@@ -25,8 +25,8 @@ class GoodController extends AbstractController
 
         if($form->isSubmitted() && $form->isValid())
         {
-            $manager->persist($good);
-            $manager->flush();
+            $entityManager->persist($good);
+            $entityManager->flush();
 
             return $this->redirectToRoute('home', [
                 'good_id' => $good->getId(),
@@ -49,7 +49,7 @@ class GoodController extends AbstractController
         ]);
     }
 
-    public function edit($good_id, GoodRepository $goodRepository, Request $request, ObjectManager $objectManager)
+    public function edit($good_id, GoodRepository $goodRepository, Request $request, EntityManagerInterface $entityManager)
     {
         $good = $goodRepository->findOneById($good_id);
 
@@ -60,7 +60,7 @@ class GoodController extends AbstractController
 
         if($form->isSubmitted() && $form->isValid())
         {
-            $objectManager->flush();
+            $entityManager->flush();
             return $this->redirectToRoute('profile');
         }
 
@@ -69,14 +69,14 @@ class GoodController extends AbstractController
         ]);
     }
 
-    public function delete($good_id, GoodRepository $goodRepository, Request $request, ObjectManager $objectManager)
+    public function delete($good_id, GoodRepository $goodRepository, Request $request, EntityManagerInterface $entityManager)
     {
         $good = $goodRepository->findOneById($good_id);
 
         if ($this->getUser()->getId() != $good->getSeller()->getId()) return $this->redirectToRoute('home');
 
-        $objectManager->remove($good);
-        $objectManager->flush();
+        $entityManager->remove($good);
+        $entityManager->flush();
         return $this->redirectToRoute('profile');
     }
 }

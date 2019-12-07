@@ -3,11 +3,10 @@
 namespace App\Controller;
 
 use App\Entity\Message;
-use App\Entity\User;
 use App\Form\MessageType;
 use App\Repository\MessageRepository;
 use App\Repository\UserRepository;
-use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -33,7 +32,7 @@ class MessageController extends AbstractController
         ]);
     }
 
-    public function usermessages($user_id, Request $request, ObjectManager $manager, UserRepository $userRepository, MessageRepository $messageRepository)
+    public function usermessages($user_id, Request $request, EntityManagerInterface $entityManager, UserRepository $userRepository, MessageRepository $messageRepository)
     {
         $user1 = $this->getUser();
         $user2 = $userRepository->findOneById($user_id);
@@ -50,8 +49,8 @@ class MessageController extends AbstractController
 
         if($form->isSubmitted() && $form->isValid())
         {
-            $manager->persist($message);
-            $manager->flush();
+            $entityManager->persist($message);
+            $entityManager->flush();
 
             return $this->redirect($request->getUri());
         }
