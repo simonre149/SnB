@@ -6,6 +6,7 @@ use App\Form\SearchType;
 use App\Repository\GoodRepository;
 use App\Repository\SubcategoryRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 
 class HomeController extends AbstractController
@@ -22,7 +23,7 @@ class HomeController extends AbstractController
             $content = $form->get('search')->getData();
             $min_price = $form->get('min_price')->getData();
             $max_price = $form->get('max_price')->getData();
-            $subcategory = $form->get('subcategory')->getData()->getId();
+            $subcategory_id = $form->get('subcategory')->getData()->getId();
 
             if ($min_price == null) $min_price = 0;
             if ($max_price == null) $max_price = 999999999;
@@ -31,7 +32,7 @@ class HomeController extends AbstractController
                 'content' => $content,
                 'min_price' => $min_price,
                 'max_price' => $max_price,
-                'subcategory' => $subcategory
+                'subcategory' => $subcategory_id
             ]);
         }
 
@@ -45,7 +46,8 @@ class HomeController extends AbstractController
     public function search($content, $min_price, $max_price, $subcategory, GoodRepository $goodRepository, SubcategoryRepository $subcategoryRepository, Request $request)
     {
         $allGoods = $goodRepository->search($content, $min_price, $max_price, $subcategory);
-        $subcategory_name = $subcategoryRepository->findOneBy(['id' => $subcategory]);
+
+        $subcategory_name = $subcategoryRepository->find(15)->getName();
 
         return $this->render('pages/home.html.twig', [
             'current_menu' => 'search',
@@ -53,5 +55,31 @@ class HomeController extends AbstractController
             'search_content' => $content,
             'subcategory_name' => $subcategory_name
         ]);
+    }
+
+    public function searchApi($content, $min_price, $max_price, $subcategory, GoodRepository $goodRepository, SubcategoryRepository $subcategoryRepository, Request $request)
+    {
+        $allGoods = $goodRepository->search($content, $min_price, $max_price, $subcategory);
+
+        $arrayCollection = [];
+
+        foreach($allGoods as $good)
+        {
+            $arrayCollection[] = [
+                'id' => $good->getId(),
+                'title' => $good->getTitle(),
+                'description' => $good->getDescription(),
+                'price' => $good->getPrice(),
+                'postal_code' => $good->getPostalCode(),
+                'city' => $good->getCity(),
+                'phone' => $good->getPhone(),
+                'created_at' => $good->getCreatedAt(),
+                'seller_id' => $good->getSeller()->getId(),
+                'subcategory_id' => $good->getSubcategory()->getId(),
+                'filename' => $good->getFilename()
+            ];
+        }
+
+        return new JsonResponse($arrayCollection);
     }
 }

@@ -37,3 +37,7 @@ delete:
 search:
   path: search/{content}_{min_price}_{max_price}_{subcategory}
   controller: App\Controller\HomeController::search
+
+searchapi:
+  path: search/{content}_{min_price}_{max_price}_{subcategory}/api
+  controller: App\Controller\HomeController::searchApi
