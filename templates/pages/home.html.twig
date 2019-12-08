@@ -44,7 +44,7 @@
             <h1 style="text-align: center">Latest goods added</h1>
         {% endif %}
         {% if current_menu == 'search' %}
-            <h2 style="text-align: center">Search results for "{{ search_content }}" in {{ subcategory_name }}</h2>
+            <h2 style="text-align: center">Search results for "{{ search_content }}" in subcategory {{ subcategory_name }}</h2>
         {% endif %}
         {% if allGoods is defined and allGoods == null %}
             <h4 style="text-align: center; margin-top: 2%">No results.</h4>

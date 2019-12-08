@@ -7,6 +7,7 @@ use App\Form\GoodType;
 use App\Repository\GoodRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpFoundation\Request;
 
 class GoodController extends AbstractController
@@ -69,11 +70,13 @@ class GoodController extends AbstractController
         ]);
     }
 
-    public function delete($good_id, GoodRepository $goodRepository, Request $request, EntityManagerInterface $entityManager)
+    public function delete($good_id, GoodRepository $goodRepository, EntityManagerInterface $entityManager, Filesystem $filesystem)
     {
         $good = $goodRepository->findOneById($good_id);
 
         if ($this->getUser()->getId() != $good->getSeller()->getId()) return $this->redirectToRoute('home');
+
+        $filesystem->remove($good->getFilename());
 
         $entityManager->remove($good);
         $entityManager->flush();

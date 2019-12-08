@@ -47,7 +47,7 @@ class HomeController extends AbstractController
     {
         $allGoods = $goodRepository->search($content, $min_price, $max_price, $subcategory);
 
-        $subcategory_name = $subcategoryRepository->find(15)->getName();
+        $subcategory_name = $subcategoryRepository->find($subcategory)->getName();
 
         return $this->render('pages/home.html.twig', [
             'current_menu' => 'search',
