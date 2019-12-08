@@ -12,7 +12,7 @@
                 <a class="btn" href="{{ path('security_login') }}" role="button">Login</a>
             </p>
         {% endif %}
-        {% if app.user %}
+        {% if app.user and current_menu is defined and current_menu == 'home'%}
             <a class="btn" href="{{ path('profile') }}">Go to your profile</a>
 
             {% if form is defined %}
@@ -42,6 +42,9 @@
     {% if app.user %}
         {% if current_menu == 'home' %}
             <h1 style="text-align: center">Latest goods added</h1>
+        {% endif %}
+        {% if current_menu == 'search' %}
+            <h2 style="text-align: center">Search results for "{{ search_content }}" in {{ subcategory_name }}</h2>
         {% endif %}
         {% if allGoods is defined and allGoods == null %}
             <h1 style="text-align: center">No results.</h1>
