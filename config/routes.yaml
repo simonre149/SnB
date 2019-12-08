@@ -33,3 +33,7 @@ edit:
 delete:
   path: /delete/{good_id}
   controller: App\Controller\GoodController::delete
+
+search:
+  path: search/{content}_{min_price}_{max_price}_{subcategory}
+  controller: App\Controller\HomeController::search

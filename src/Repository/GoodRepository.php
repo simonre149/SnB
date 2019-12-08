@@ -51,6 +51,19 @@ class GoodRepository extends ServiceEntityRepository
             ;
     }
 
+    public function search($content, $min_price, $max_price, $subcategory_id)
+    {
+        return $this->createQueryBuilder('g')
+            ->where('g.title LIKE :content')->setParameter('content', '%'.$content.'%')
+            ->andWhere('g.price >= :min_price')->setParameter('min_price', $min_price)
+            ->andWhere('g.price <= :max_price')->setParameter('max_price', $max_price)
+            ->andWhere('g.subcategory = :subcategory')->setParameter('subcategory', $subcategory_id)
+            ->orderBy('g.id', 'ASC')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
     // /**
     //  * @return Good[] Returns an array of Good objects
     //  */
