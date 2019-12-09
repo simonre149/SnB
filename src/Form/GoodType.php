@@ -25,8 +25,6 @@ class GoodType extends AbstractType
             ->add('price')
             ->add('imageFile', FileType::class, [
                 'required' => false,
-                'allow_delete' => false,
-                'download_link' => true
             ])
             ->add('city')
             ->add('postalCode')
