@@ -12,3 +12,7 @@ knp_gaufrette:
   filesystems:
     document_fs:
       adapter:    document_adapter
+
+AppBundle\Twig\Base64Extension:
+  arguments:  ['@vich_uploader.storage.gaufrette']
+  public: true
