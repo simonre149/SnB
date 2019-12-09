@@ -16,15 +16,12 @@ services:
         resource: '../src/*'
         exclude: '../src/{DependencyInjection,Entity,Migrations,Tests,Kernel.php}'
 
-    oneup_flysystem:
-        adapters:
-            assets_adapter:
-                awss3v3:
-                    client: app.assets.s3
-                    bucket: %assets_bucket%
-                    prefix: assets
-
-        filesystems:
-            assets_fs:
-                adapter:    assets_adapter
-                mount:      assets_fs
+    ct_file_store.s3:
+        class: Aws\S3\S3Client
+        factory: [Aws\S3\S3Client, 'factory']
+        arguments:
+            - version: YOUR_AWS_S3_VERSION (to be found in AWS console depending on your bucket region and version)
+              region: YOUR_AWS_S3_REGION
+              credentials:
+                  key: '%env(AWS_KEY)%'
+                  secret: '%env(AWS_SECRET_KEY)%'

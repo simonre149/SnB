@@ -1,6 +1,6 @@
 #vich_uploader:
 #    db_driver: orm
-#
+
 #    mappings:
 #        good_image:
 #            uri_prefix: images/goods
