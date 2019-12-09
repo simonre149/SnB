@@ -48,9 +48,11 @@
         {% endif %}
         {% if allGoods is defined and allGoods == null %}
             <h4 style="text-align: center; margin-top: 2%">No results.</h4>
-            <div class="btn-container mt-4" style="text-align: center">
-                <a class="btn" href="{{ path('home') }}">Go back to home</a>
-            </div>
+            {% if current_menu == 'search' %}
+                <div class="btn-container mt-4" style="text-align: center">
+                    <a class="btn" href="{{ path('home') }}">Go back to home</a>
+                </div>
+            {% endif %}
         {% endif %}
         {% include 'pages/cards.html.twig' %} <!-- On change juste la variable allGoods en fonction de ce qu'on veut afficher -->
     {% endif %}
