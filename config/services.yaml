@@ -15,3 +15,16 @@ services:
     App\:
         resource: '../src/*'
         exclude: '../src/{DependencyInjection,Entity,Migrations,Tests,Kernel.php}'
+
+    oneup_flysystem:
+        adapters:
+            assets_adapter:
+                awss3v3:
+                    client: app.assets.s3
+                    bucket: %assets_bucket%
+                    prefix: assets
+
+        filesystems:
+            assets_fs:
+                adapter:    assets_adapter
+                mount:      assets_fs
