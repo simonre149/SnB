@@ -29,10 +29,7 @@ class GoodController extends AbstractController
             $entityManager->persist($good);
             $entityManager->flush();
 
-            return $this->redirectToRoute('home', [
-                'good_id' => $good->getId(),
-                ]
-            );
+            return $this->redirectToRoute('home');
         }
 
         return $this->render('pages/sell.html.twig', [

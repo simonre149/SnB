@@ -83,7 +83,6 @@ class Good
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Subcategory", inversedBy="goods")
-     * @Assert\NotNull
      */
     private $subcategory;
 

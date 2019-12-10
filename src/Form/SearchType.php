@@ -59,7 +59,6 @@ class SearchType extends AbstractType
             'class' => Subcategory::class,
             'label' => false,
             'placeholder' => $category ? 'Choose a subcategory...' : "Choose a category first !",
-            'required' => true,
             'auto_initialize' => false,
             'choices' => $category ? $category->getSubcategories() : []
         ]);

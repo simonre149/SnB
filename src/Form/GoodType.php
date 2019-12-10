@@ -59,7 +59,6 @@ class GoodType extends AbstractType
         $builder = $form->getConfig()->getFormFactory()->createNamedBuilder('subcategory', EntityType::class, null, [
             'class' => Subcategory::class,
             'placeholder' => $category ? 'Choose a subcategory' : "Choose a category first !",
-            'required' => false,
             'auto_initialize' => false,
             'choices' => $category ? $category->getSubcategories() : []
         ]);
