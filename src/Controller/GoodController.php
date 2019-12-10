@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Good;
+use App\Form\EditType;
 use App\Form\GoodType;
 use App\Repository\GoodRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -53,7 +54,7 @@ class GoodController extends AbstractController
 
         if ($this->getUser()->getId() != $good->getSeller()->getId()) return $this->redirectToRoute('home');
 
-        $form = $this->createForm(GoodType::class, $good);
+        $form = $this->createForm(EditType::class, $good);
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid())
@@ -62,7 +63,7 @@ class GoodController extends AbstractController
             return $this->redirectToRoute('profile');
         }
 
-        return $this->render('pages/sell.html.twig', [
+        return $this->render('pages/edit.html.twig', [
             'form' => $form->createView()
         ]);
     }
