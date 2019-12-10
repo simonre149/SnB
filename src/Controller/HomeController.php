@@ -23,6 +23,7 @@ class HomeController extends AbstractController
             $content = $form->get('search')->getData();
             $min_price = $form->get('min_price')->getData();
             $max_price = $form->get('max_price')->getData();
+            $category_id = $form->get('category')->getData()->getId();
             $subcategory_id = $form->get('subcategory')->getData()->getId();
 
             if ($min_price == null) $min_price = 0;
@@ -32,6 +33,7 @@ class HomeController extends AbstractController
                 'content' => $content,
                 'min_price' => $min_price,
                 'max_price' => $max_price,
+                'category' => $category_id,
                 'subcategory' => $subcategory_id
             ]);
         }
@@ -43,7 +45,7 @@ class HomeController extends AbstractController
         ]);
     }
 
-    public function search($content, $min_price, $max_price, $subcategory, GoodRepository $goodRepository, SubcategoryRepository $subcategoryRepository, Request $request)
+    public function search($content, $min_price, $max_price, $category, $subcategory, GoodRepository $goodRepository, SubcategoryRepository $subcategoryRepository, Request $request)
     {
         $allGoods = $goodRepository->search($content, $min_price, $max_price, $subcategory);
 
@@ -57,7 +59,7 @@ class HomeController extends AbstractController
         ]);
     }
 
-    public function searchApi($content, $min_price, $max_price, $subcategory, GoodRepository $goodRepository, SubcategoryRepository $subcategoryRepository, Request $request)
+    public function searchApi($content, $min_price, $max_price, $category, $subcategory, GoodRepository $goodRepository, SubcategoryRepository $subcategoryRepository, Request $request)
     {
         $allGoods = $goodRepository->search($content, $min_price, $max_price, $subcategory);
 
@@ -75,6 +77,7 @@ class HomeController extends AbstractController
                 'phone' => $good->getPhone(),
                 'created_at' => $good->getCreatedAt(),
                 'seller_id' => $good->getSeller()->getId(),
+                'category_id' => $good->getSubcategory()->getCategory()->getId(),
                 'subcategory_id' => $good->getSubcategory()->getId(),
                 'filename' => $good->getFilename()
             ];
